@@ -118,25 +118,26 @@ function main() {
 
   SLL.remove('Husker');
 
-  //currently not working
+  //method inserted above
   SLL.insertBefore('Athena', 'Boomer');
 
-  //currently not working
-  //SLL.insertAfter('Hotdog', 'Halo');
+  //method inserted above
+  SLL.insertAfter('Hotdog', 'Halo');
 
-  //method inserted above and is working
-  //SLL.insertAt('Kat', 3);
+  //method inserted above
+  SLL.insertAt('Kat', 3);
 
-  //currently not working and producing an error that crashes everything
-  //SLL.remove('Tauhida');
+  //method inserted above
+  SLL.remove('Tauhida');
 
   return SLL;
 }
-console.log(main());
+//console.log(main());
 
 //3. Supplemental functions for a linked list
 //Time complexity:
 let testList = main();
+
 //shows the linked list
 function display(list) {
   let currentNode = list.head;
@@ -151,27 +152,47 @@ function display(list) {
 
 //shows size of the linked list
 function size(list) {
-
+  let currentNode = list.head;
+  let counter = 1;
+  while(currentNode.next !== null) {
+    currentNode = currentNode.next;
+    counter ++;
+  }
+  return counter;
 }
+//console.log(size(testList));
 
 //determines if a list is empty without using the size function
-function isEmpty() {
-
+function isEmpty(list) {
+  if(!list.head) {
+    return 'This list is empty';
+  } return 'This list is not empty';
 }
+//console.log(isEmpty(testList));
 
 //finds the node prior to the input
-function findPrevious() {
-
+function findPrevious(list, node) {
+  let currentNode = list.head;
+  let previousNode;
+  while(currentNode.value !== node) {
+    previousNode = currentNode;
+    currentNode = currentNode.next;
+  } return previousNode;
 }
+//console.log(findPrevious(testList, 'Hotdog'));
 
 //returns the last node in the list
-function findLast() {
-
+function findLast(list) {
+  let currentNode = list.head;
+  while (currentNode.next !== null) {
+    currentNode = currentNode.next;
+  } return currentNode;
 }
+//console.log(findLast(testList));
 
 //4. Mystery program
-//Time complexity:
-//The following program removes duplicate items from the linked list.
+//Time complexity: I should ask about this
+//The following program removes nodes with duplicate values from the linked list.
 
 function WhatDoesThisProgramDo(lst) {
   let current = lst.head;
@@ -190,16 +211,84 @@ function WhatDoesThisProgramDo(lst) {
 }
 
 //5. Reverse a list
-//Time complexity:
+//Time complexity: O(n)
+function reverseList(list) {
+  console.log(list.head);
+  if(list.head === null || list.head.next === null) {
+    return list.head;
+  }
+  let newHead = reverseList(list.head.next);
+  list.head.next.next = list.head;
+  list.head.next = null;
+  return newHead;
+}
+//Getting a weird error where list.head.next is undefined but list.head shows a next property
+//console.log(reverseList(testList));
 
 //6. 3rd from the end
-//Time complexity:
+//Time complexity: O(n)
+function thirdFromEnd(list) {
+  let length = size(list);
+  let currentNode = list.head;
+  if(length < 3) {
+    return 'List is too short';
+  } for (let i = 0; i < length - 3; i ++) {
+    currentNode = currentNode.next;
+  }
+  return currentNode;
+}
+//console.log(thirdFromEnd(testList));
 
 //7. Middle of a list
-//Time complexity:
+//Time complexity: O(n)
+function middleOfList(list) {
+  let currentNode = list.head;
+  let length = size(list);
+  let middle;
+  let after;
+  if(length % 2 ===0) {
+    middle = length / 2;
+    for(let i = 1; i < middle; i ++) {
+      currentNode = currentNode.next;
+    } after = currentNode.next;
+    return currentNode + 'and' + after;
+  }
+  if(length % 2 === 1) {
+    middle = Math.round(length/2);
+    for(let i = 1; i < middle; i ++) {
+      currentNode = currentNode.next;
+    } return currentNode;
+  }
+}
+//console.log(middleOfList(testList));
 
 //8. Cycle in a list
-//Time complexity:
+//Time complexity: O(n)
+let cycleList = new LinkedList;
+cycleList.insertLast('1');
+cycleList.insertLast('2');
+cycleList.insertLast('3');
+cycleList.insertLast('4');
+cycleList.insertBefore('5', '1');
+cycleList.find('1').next = cycleList.find('5');
+
+function hasCycle(list) {
+  let tempList = new LinkedList;
+  let currentNode = list.head;
+  while(currentNode !== null) {
+    tempList.insertLast(currentNode.value);
+    let tempCurrentNode = tempList.head;
+    while(tempCurrentNode !== null) {
+      if(currentNode.next.value === tempCurrentNode.value) {
+        return true;
+      }
+      tempCurrentNode = tempCurrentNode.next;
+    }
+    currentNode = currentNode.next;
+  }
+  return false;
+}
+//console.log(hasCycle(cycleList));
 
 //9. Sorting a list
 //Time complexity:
