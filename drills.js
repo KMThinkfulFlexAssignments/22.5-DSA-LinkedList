@@ -292,3 +292,38 @@ function hasCycle(list) {
 
 //9. Sorting a list
 //Time complexity:
+let unsortedList = new LinkedList;
+unsortedList.insertLast('3');
+unsortedList.insertLast('2');
+unsortedList.insertLast('5');
+unsortedList.insertLast('4');
+unsortedList.insertLast('1');
+unsortedList.insertLast('6');
+
+function insertionSort(head) {
+  console.log(head);
+  let result;
+  let currentNode = head;
+  let next;
+
+  while(currentNode !== null) {
+    next = currentNode.next;
+  }
+  return result;
+}
+console.log(insertionSort(unsortedList.head));
+
+function sortList(list) {
+  console.log(list);
+  let tempNode = new _Node;
+  let currentNode = tempNode;
+  tempNode.next = list;
+
+  while(currentNode.next !== null) {
+    currentNode = currentNode.next;
+  }
+  tempNode.next = currentNode.next;
+  return tempNode.next;
+}
+console.log(sortList(unsortedList));
+//expected outcome 1->2->3->4->5->6
