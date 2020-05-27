@@ -141,6 +141,9 @@ let testList = main();
 //shows the linked list
 function display(list) {
   let currentNode = list.head;
+  if(!list.head) {
+    return console.log('List is empty');
+  }
   while(currentNode.next !== null) {
     console.log(currentNode.value);
     currentNode = currentNode.next;
@@ -149,6 +152,7 @@ function display(list) {
   console.log('End of list');
 }
 //display(testList);
+//display(new LinkedList);
 
 //shows size of the linked list
 function size(list) {
@@ -191,9 +195,8 @@ function findLast(list) {
 //console.log(findLast(testList));
 
 //4. Mystery program
-//Time complexity: I should ask about this
+//Time complexity: O(n^2) because each element has to see every other element in the list
 //The following program removes nodes with duplicate values from the linked list.
-
 function WhatDoesThisProgramDo(lst) {
   let current = lst.head;
   while (current !== null) {
@@ -213,17 +216,21 @@ function WhatDoesThisProgramDo(lst) {
 //5. Reverse a list
 //Time complexity: O(n)
 function reverseList(list) {
-  console.log(list.head);
-  if(list.head === null || list.head.next === null) {
-    return list.head;
+  var reversedList = new LinkedList;
+  function helperFunction(currentNode) {
+    if (!currentNode) {
+      return;
+    }
+    if (currentNode.next) {
+      helperFunction(currentNode.next);
+    }
+    console.log(currentNode.value);
+    reversedList.insertFirst(currentNode);
   }
-  let newHead = reverseList(list.head.next);
-  list.head.next.next = list.head;
-  list.head.next = null;
-  return newHead;
+  helperFunction(list.head);
+  return reversedList;
 }
-//Getting a weird error where list.head.next is undefined but list.head shows a next property
-//console.log(reverseList(testList));
+//reverseList(testList);
 
 //6. 3rd from the end
 //Time complexity: O(n)
@@ -311,7 +318,7 @@ function insertionSort(head) {
   }
   return result;
 }
-console.log(insertionSort(unsortedList.head));
+//console.log(insertionSort(unsortedList.head));
 
 function sortList(list) {
   console.log(list);
@@ -325,5 +332,5 @@ function sortList(list) {
   tempNode.next = currentNode.next;
   return tempNode.next;
 }
-console.log(sortList(unsortedList));
+//console.log(sortList(unsortedList));
 //expected outcome 1->2->3->4->5->6
