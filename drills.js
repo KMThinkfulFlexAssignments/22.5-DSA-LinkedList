@@ -300,37 +300,36 @@ function hasCycle(list) {
 //9. Sorting a list
 //Time complexity:
 let unsortedList = new LinkedList;
-unsortedList.insertLast('3');
-unsortedList.insertLast('2');
-unsortedList.insertLast('5');
-unsortedList.insertLast('4');
-unsortedList.insertLast('1');
-unsortedList.insertLast('6');
+unsortedList.insertLast(3);
+unsortedList.insertLast(2);
+unsortedList.insertLast(5);
+unsortedList.insertLast(4);
+unsortedList.insertLast(1);
+unsortedList.insertLast(6);
 
-function insertionSort(head) {
-  console.log(head);
-  let result;
-  let currentNode = head;
-  let next;
-
-  while(currentNode !== null) {
-    next = currentNode.next;
-  }
-  return result;
-}
-//console.log(insertionSort(unsortedList.head));
 
 function sortList(list) {
-  console.log(list);
-  let tempNode = new _Node;
-  let currentNode = tempNode;
-  tempNode.next = list;
+  let sortedList = new LinkedList;
+  let minVal;
+  while(list.head) {
+    minVal = minimumValue(list);
+    sortedList.insertLast(minVal);
+    list.remove(minVal);
+  }
+  return sortedList;
+}
+console.log(display(sortList(unsortedList)));
+//expected outcome 1->2->3->4->5->6
 
-  while(currentNode.next !== null) {
+function minimumValue(list) {
+  let currentNode = list.head;
+  let currentValue = list.head.value;
+  while(currentNode && currentNode.next) {
+    if(currentValue > currentNode.next.value) {
+      currentValue = currentNode.next.value;
+    }
     currentNode = currentNode.next;
   }
-  tempNode.next = currentNode.next;
-  return tempNode.next;
+  return currentValue;
 }
-//console.log(sortList(unsortedList));
-//expected outcome 1->2->3->4->5->6
+//console.log(minimumValue(unsortedList));
